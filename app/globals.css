@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-outline-variant;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-sans text-body-md text-on-surface antialiased;
+  }
+
+  ::selection {
+    background: rgba(27, 77, 51, 0.2);
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-container px-md sm:px-gutter;
+  }
+
+  .eyebrow {
+    @apply font-sans text-label-md uppercase tracking-[0.08em] text-primary hover:text-secondary;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-xs rounded-[0.5rem] px-[1.75rem] py-[0.75rem] text-label-lg transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary hover:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-container text-white shadow-elevation-low hover:bg-primary-hover hover:shadow-elevation-mid;
+  }
+
+  .btn-secondary {
+    @apply btn border-[1.5px] border-primary-container bg-transparent text-primary-container hover:bg-parchment;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent px-md text-primary-container underline-offset-4 hover:underline;
+  }
+
+  .input {
+    @apply h-12 w-full rounded-[0.5rem] border border-outline-variant bg-surface-container-lowest px-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(90,125,60,0.15)] focus:outline-none;
+  }
+
+  .textarea {
+    @apply w-full rounded-[0.5rem] border border-outline-variant bg-surface-container-lowest px-md py-sm text-body-md text-on-surface placeholder:text-on-surface-variant/70 focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(90,125,60,0.15)] focus:outline-none;
+  }
+
+  .select {
+    @apply h-12 w-full rounded-[0.5rem] border border-outline-variant bg-surface-container-lowest px-md text-body-md text-on-surface focus:border-primary-container focus:shadow-[0_0_0_3px_rgba(90,125,60,0.15)] focus:outline-none;
+  }
+
+  .label {
+    @apply mb-xs block font-sans text-label-md uppercase tracking-[0.06em] text-on-surface-variant;
+  }
+
+  .chip {
+    @apply inline-flex h-8 select-none items-center rounded-full bg-parchment px-sm text-label-md text-primary-container transition-colors;
+  }
+
+  .chip-active {
+    @apply bg-primary-container text-white;
+  }
+
+  .badge-tag {
+    @apply inline-flex items-center rounded-full border border-tag bg-tag/15 px-xs py-[2px] text-label-md text-primary-container;
+  }
+
+  .card {
+    @apply rounded-lg border border-outline-variant bg-surface-container-lowest p-lg transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-elevation-mid;
+  }
+}
