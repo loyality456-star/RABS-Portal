@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LeafMark } from "@/components/Leaf";
+import Image from "next/image";
 
 export default function AuthLayout({
   children,
@@ -10,9 +10,14 @@ export default function AuthLayout({
     <div className="mx-auto flex w-full max-w-container flex-1 items-center justify-center px-md py-4xl">
       <div className="w-full max-w-md space-y-lg">
         <div className="text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-            <LeafMark className="h-7 w-7" />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="RABS — Roots & Botanical Solutions logo"
+            width={56}
+            height={56}
+            className="mx-auto h-14 w-14 rounded-full object-cover ring-2 ring-surface-container-low shadow-elevation-mid"
+            priority
+          />
           <h1 className="mt-sm font-display text-headline-lg text-on-surface">
             RABS Portal
           </h1>

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { LeafMark } from "@/components/Leaf";
 import { cx } from "@/lib/format";
 
 const NAV = [
@@ -44,9 +44,13 @@ export default function PortalShell({
         )}
       >
         <div className="flex h-16 items-center gap-sm border-b border-outline-variant px-md">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-            <LeafMark className="h-5 w-5" />
-          </span>
+          <Image
+            src="/logo.png"
+            alt="RABS logo"
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-cover ring-1 ring-outline-variant"
+          />
           <div>
             <p className="text-title-md text-on-surface">RABS Portal</p>
             <p className="text-label-sm text-on-surface-variant">Admin</p>
