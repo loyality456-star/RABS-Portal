@@ -2,7 +2,7 @@ import { randomBytes, scryptSync, timingSafeEqual } from "crypto";
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 import { execute, query, queryOne } from "@/lib/db";
-import { SCHEMA_SQL } from "@/lib/schema";
+import { SCHEMA_SQL, SCHEMA_STATEMENTS } from "@/lib/schema";
 import type { AdminUser } from "@/lib/schema";
 
 const SCRYPT_N = 16384;
@@ -41,7 +41,9 @@ export function newId(): string {
 let initialized = false;
 export async function ensureSchema() {
   if (initialized) return;
-  await execute(SCHEMA_SQL);
+  for (const stmt of SCHEMA_STATEMENTS) {
+    await execute(stmt);
+  }
   initialized = true;
 }
 

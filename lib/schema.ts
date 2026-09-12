@@ -6,8 +6,17 @@ CREATE TABLE IF NOT EXISTS categories (
   description TEXT DEFAULT '',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+`;
 
-CREATE TABLE IF NOT EXISTS products (
+export const SCHEMA_STATEMENTS: string[] = [
+  `CREATE TABLE IF NOT EXISTS categories (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  description TEXT DEFAULT '',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`,
+  `CREATE TABLE IF NOT EXISTS products (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
@@ -19,9 +28,8 @@ CREATE TABLE IF NOT EXISTS products (
   is_active INTEGER DEFAULT 1,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
-);
-
-CREATE TABLE IF NOT EXISTS reviews (
+)`,
+  `CREATE TABLE IF NOT EXISTS reviews (
   id TEXT PRIMARY KEY,
   product_id TEXT NOT NULL,
   customer_name TEXT NOT NULL,
@@ -31,9 +39,8 @@ CREATE TABLE IF NOT EXISTS reviews (
   replied_at DATETIME,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS orders (
+)`,
+  `CREATE TABLE IF NOT EXISTS orders (
   id TEXT PRIMARY KEY,
   customer_name TEXT NOT NULL,
   phone TEXT NOT NULL,
@@ -45,9 +52,8 @@ CREATE TABLE IF NOT EXISTS orders (
   status TEXT DEFAULT 'pending',
   total REAL NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS order_items (
+)`,
+  `CREATE TABLE IF NOT EXISTS order_items (
   id TEXT PRIMARY KEY,
   order_id TEXT NOT NULL,
   product_id TEXT,
@@ -55,15 +61,14 @@ CREATE TABLE IF NOT EXISTS order_items (
   quantity INTEGER NOT NULL,
   unit_price REAL NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS admin_users (
+)`,
+  `CREATE TABLE IF NOT EXISTS admin_users (
   id TEXT PRIMARY KEY,
   username TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-`;
+)`,
+];
 
 export interface Category {
   id: string;
