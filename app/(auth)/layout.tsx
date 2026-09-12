@@ -27,7 +27,7 @@ export default function AuthLayout({
         </div>
         {children}
         <p className="text-center text-body-sm text-on-surface-variant">
-          <Link href="https://rabs-storefront.vercel.app" className="text-primary underline underline-offset-2">
+          <Link href="https://rabs-store.vercel.app" className="text-primary underline underline-offset-2">
             ← back to the store
           </Link>
         </p>
