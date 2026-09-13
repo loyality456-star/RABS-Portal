@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { execute, queryOne } from "@/lib/db";
-import { ensureSchema, getUserByUsername, hashPassword, newId, SESSION_COOKIE, createSessionToken } from "@/lib/auth";
+import { execute } from "@/lib/db";
+import { ensureSchema, getUserByUsername, hashPassword, newId, SESSION_COOKIE, createSessionToken, accountCreationAllowed } from "@/lib/auth";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +14,21 @@ const schema = z.object({
 export async function POST(req: Request) {
   try {
     await ensureSchema();
+    let allowed: boolean;
+    try {
+      allowed = await accountCreationAllowed();
+    } catch {
+      allowed = false;
+    }
+    if (!allowed) {
+      return NextResponse.json(
+        {
+          error:
+            "An admin account already exists. Ask an existing admin to create your account from the Admins section.",
+        },
+        { status: 403 }
+      );
+    }
     const { username, password } = schema.parse(await req.json());
     const existing = await getUserByUsername(username);
     if (existing) {

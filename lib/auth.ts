@@ -47,6 +47,28 @@ export async function ensureSchema() {
   initialized = true;
 }
 
+export async function adminCount(): Promise<number> {
+  try {
+    const rows = await query<{ n: number }>(
+      "SELECT COUNT(*) AS n FROM admin_users"
+    );
+    return Number(rows[0]?.n ?? 0);
+  } catch {
+    await ensureSchema();
+    const rows = await query<{ n: number }>(
+      "SELECT COUNT(*) AS n FROM admin_users"
+    );
+    return Number(rows[0]?.n ?? 0);
+  }
+}
+
+export async function accountCreationAllowed(): Promise<boolean> {
+  const count = await adminCount();
+  if (count === 0) return true;
+  const user = await getSessionUser();
+  return !!user;
+}
+
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "rabs-portal-secret-change-me"
 );
