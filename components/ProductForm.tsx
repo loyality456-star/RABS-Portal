@@ -102,7 +102,7 @@ export function ProductForm({
             </h2>
             <div className="grid gap-md sm:grid-cols-2">
               <Input
-                label="Price (USD)"
+                label="Price (PKR)"
                 name="price"
                 type="number"
                 step="0.01"
