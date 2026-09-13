@@ -18,7 +18,6 @@ const sans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: { default: "RABS Portal", template: "%s · RABS Portal" },
-  icons: { icon: "/logo.png" },
 };
 
 export default function PortalRootLayout({
