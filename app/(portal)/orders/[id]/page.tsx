@@ -5,6 +5,7 @@ import { OrderStatusManager } from "@/components/OrderStatusManager";
 import { OrderDeleteButton } from "@/components/OrderDeleteButton";
 import { getOrder, getOrderItems } from "@/lib/portal";
 import { formatPrice } from "@/lib/format";
+import { shippingForQuantity } from "@/lib/shipping";
 
 export const dynamic = "force-dynamic";
 
@@ -57,6 +58,31 @@ export default async function OrderDetailPage({
                   </span>
                 </li>
               ))}
+              <li className="flex items-center justify-between px-lg py-sm">
+                <span className="text-body-sm text-on-surface">
+                  Items
+                </span>
+                <span className="text-body-sm text-on-surface-variant">
+                  {formatPrice(
+                    items.reduce(
+                      (sum, item) => sum + item.unit_price * item.quantity,
+                      0
+                    )
+                  )}
+                </span>
+              </li>
+              <li className="flex items-center justify-between px-lg py-sm">
+                <span className="text-body-sm text-on-surface">
+                  Shipping (200 PKR / 5 items)
+                </span>
+                <span className="text-body-sm text-on-surface-variant">
+                  {formatPrice(
+                    shippingForQuantity(
+                      items.reduce((n, item) => n + item.quantity, 0)
+                    )
+                  )}
+                </span>
+              </li>
               <li className="flex items-center justify-between bg-surface-container-low px-lg py-sm">
                 <span className="text-title-lg text-on-surface">Total (COD)</span>
                 <span className="font-display text-headline-md text-primary">
