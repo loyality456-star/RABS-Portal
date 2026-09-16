@@ -1,5 +1,6 @@
 export const SHIPPING_RATE = 200;
 export const ITEMS_PER_BLOCK = 5;
+export const PLATFORM_FEE = 10;
 
 export function shippingForQuantity(quantity: number): number {
   if (quantity <= 0) return 0;
@@ -7,5 +8,5 @@ export function shippingForQuantity(quantity: number): number {
 }
 
 export function orderTotal(subtotal: number, quantity: number): number {
-  return subtotal + shippingForQuantity(quantity);
+  return subtotal + shippingForQuantity(quantity) + PLATFORM_FEE;
 }

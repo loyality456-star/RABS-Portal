@@ -5,7 +5,7 @@ import { OrderStatusManager } from "@/components/OrderStatusManager";
 import { OrderDeleteButton } from "@/components/OrderDeleteButton";
 import { getOrder, getOrderItems } from "@/lib/portal";
 import { formatPrice } from "@/lib/format";
-import { shippingForQuantity } from "@/lib/shipping";
+import { shippingForQuantity, PLATFORM_FEE } from "@/lib/shipping";
 
 export const dynamic = "force-dynamic";
 
@@ -81,6 +81,14 @@ export default async function OrderDetailPage({
                       items.reduce((n, item) => n + item.quantity, 0)
                     )
                   )}
+                </span>
+              </li>
+              <li className="flex items-center justify-between px-lg py-sm">
+                <span className="text-body-sm text-on-surface">
+                  Platform fee
+                </span>
+                <span className="text-body-sm text-on-surface-variant">
+                  {formatPrice(PLATFORM_FEE)}
                 </span>
               </li>
               <li className="flex items-center justify-between bg-surface-container-low px-lg py-sm">
