@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { StatusChip } from "@/components/ui/Badges";
+import { OrderDeleteButton } from "@/components/OrderDeleteButton";
 import { query } from "@/lib/db";
 import { formatPrice } from "@/lib/format";
 import type { Order } from "@/lib/schema";
@@ -61,7 +62,7 @@ export default async function OrdersPage({
       ) : (
         <Card className="overflow-hidden p-0">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[720px] text-left">
+            <table className="w-full min-w-[780px] text-left">
               <thead>
                 <tr className="border-b border-outline-variant text-label-md uppercase tracking-[0.06em] text-on-surface-variant">
                   <th className="px-lg py-sm">Order</th>
@@ -69,6 +70,7 @@ export default async function OrdersPage({
                   <th className="px-lg py-sm">City</th>
                   <th className="px-lg py-sm">Total</th>
                   <th className="px-lg py-sm">Status</th>
+                  <th className="px-lg py-sm text-right">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant">
@@ -96,6 +98,9 @@ export default async function OrdersPage({
                     </td>
                     <td className="px-lg py-sm">
                       <StatusChip status={order.status} />
+                    </td>
+                    <td className="px-lg py-sm text-right">
+                      <OrderDeleteButton orderId={order.id} compact />
                     </td>
                   </tr>
                 ))}

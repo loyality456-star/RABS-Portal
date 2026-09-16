@@ -42,3 +42,29 @@ export async function PATCH(
     return NextResponse.json({ error: "Could not update order." }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  _req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    await ensureSchema();
+    await requireAdmin();
+    const { id } = await params;
+
+    const order = await queryOne<Order>("SELECT * FROM orders WHERE id = ?", [id]);
+    if (!order) {
+      return NextResponse.json({ error: "Order not found." }, { status: 404 });
+    }
+
+    await execute("DELETE FROM order_items WHERE order_id = ?", [id]);
+    await execute("DELETE FROM orders WHERE id = ?", [id]);
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    if (err instanceof Error && err.message === "UNAUTHORIZED") {
+      return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+    }
+    console.error("DELETE /api/admin/orders/[id]", err);
+    return NextResponse.json({ error: "Could not delete order." }, { status: 500 });
+  }
+}

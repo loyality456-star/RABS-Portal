@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { OrderStatusManager } from "@/components/OrderStatusManager";
+import { OrderDeleteButton } from "@/components/OrderDeleteButton";
 import { getOrder, getOrderItems } from "@/lib/portal";
 import { formatPrice } from "@/lib/format";
 
@@ -128,6 +129,15 @@ export default async function OrderDetailPage({
               portal access — statuses are for your tracking.
             </p>
             <OrderStatusManager id={order.id} current={order.status} />
+          </Card>
+          <Card className="space-y-sm h-fit">
+            <h2 className="font-display text-headline-sm text-on-surface">
+              Danger zone
+            </h2>
+            <p className="text-body-sm text-on-surface-variant">
+              Delete this order permanently. This cannot be undone.
+            </p>
+            <OrderDeleteButton orderId={order.id} />
           </Card>
         </div>
       </div>
