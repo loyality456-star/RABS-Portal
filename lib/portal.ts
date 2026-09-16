@@ -60,7 +60,10 @@ export async function dashboardStats() {
     query<{ n: number }>("SELECT COUNT(*) AS n FROM reviews"),
     query<{ n: number }>("SELECT COUNT(*) AS n FROM orders"),
     query<{ n: number }>(
-      "SELECT COALESCE(SUM(total), 0) AS n FROM orders WHERE status NOT IN ('cancelled')"
+      `SELECT COALESCE(SUM(oi.unit_price * oi.quantity), 0) AS n
+       FROM order_items oi
+       JOIN orders o ON o.id = oi.order_id
+       WHERE o.status NOT IN ('cancelled')`
     ),
   ]);
   const pendingReviews = await query<{ n: number }>(
